@@ -34,6 +34,14 @@ This project follows the [Conventional Commits](https://www.conventionalcommits.
 
 ---
 
+## [1.0.2] - Added docs
+
+### Changed
+
+- Update README.md with proper explanation of the project
+
+---
+
 ## [1.0.1] - EsLint
 
 ### Fixed

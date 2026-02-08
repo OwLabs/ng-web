@@ -1,36 +1,110 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌐 ng-web — NeuralGuru Web Applications
 
-## Getting Started
+`ng-web` is the web interface layer for the NeuralGuru platform.  
+It serves three primary user roles through dedicated dashboards and role-based access:
 
-First, run the development server:
+- **Admin**
+- **Tutor**
+- **Student**
+
+This repository focuses on **user experience, workflows, and role-specific functionality**, while delegating all business logic, AI processing, and data orchestration to backend services.
+
+---
+
+## 🎯 Purpose
+
+The goal of `ng-web` is to provide a **clean, responsive, and intuitive web experience** for all NeuralGuru users, ensuring that each role can perform its responsibilities efficiently and securely.
+
+`ng-web` does **not**:
+
+- Perform AI analysis
+- Generate KBAT questions
+- Process payments directly
+- Store or compute academic data
+
+All such logic is handled by backend services (e.g. `ng-core`, `ng-ai`).
+
+---
+
+## 👥 Supported User Roles
+
+### 👨‍🎓 Student
+
+The Student interface is designed to support learning, practice, and progress tracking.
+
+Key capabilities:
+
+- View assigned subjects and learning materials
+- Take quizzes and tests
+- Practice AI-generated KBAT questions
+- Receive AI-guided hints and feedback
+- View performance reports and progress charts
+- Book tutors and manage sessions
+- View payment history and subscription status
+
+The student experience focuses on **adaptive learning** and **continuous improvement**.
+
+---
+
+### 👩‍🏫 Tutor
+
+The Tutor interface enables educators to support students effectively.
+
+Key capabilities:
+
+- Manage tutor profile (subjects, availability, rates)
+- View assigned or booked students
+- Access student performance summaries (read-only)
+- Conduct scheduled tutoring sessions (online or in-person)
+- Upload learning materials and supplementary notes
+- Track session history and earnings
+
+Tutors do **not** modify AI analysis or student diagnostics.
+
+---
+
+### 🧑‍💼 Admin
+
+The Admin interface is built for institutional and platform oversight.
+
+Key capabilities:
+
+- Manage users (students, tutors, parents)
+- Approve or verify tutor profiles
+- Monitor platform usage and engagement
+- View aggregated academic performance analytics
+- Oversee tutor participation across institutions
+- Ensure compliance with platform policies
+
+Admins interact with **summarized data only**, not raw student responses.
+
+---
+
+## 📦 Getting Started
 
 ```bash
+# install dependencies
+npm install
+
+# run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🧪 Running Tests
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To run the test suite:
 
-## Learn More
+```bash
+npm run test
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📄 License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+© 2025 NeuralGuru. All rights reserved.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is proprietary software.  
+Unauthorized copying, modification, distribution, or use of this code, in whole or in part, is strictly prohibited without explicit permission from the NeuralGuru team.
