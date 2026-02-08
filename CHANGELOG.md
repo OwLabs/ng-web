@@ -34,6 +34,16 @@ This project follows the [Conventional Commits](https://www.conventionalcommits.
 
 ---
 
+## [1.0.3] - Navbar & Floating AI Chat
+
+### Added
+
+- Navbar component
+- Floating AI Chat component
+- Installed motion library
+
+---
+
 ## [1.0.2] - Added docs
 
 ### Changed
