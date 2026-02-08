@@ -32,6 +32,16 @@ This project follows the [Conventional Commits](https://www.conventionalcommits.
 -
 - ***
 
+---
+
+## [1.0.1] - EsLint
+
+### Fixed
+
+- Fixed EsLint errors in GitHub Actions
+
+---
+
 ## [1.0.0] - Initial setup
 
 ### Added
