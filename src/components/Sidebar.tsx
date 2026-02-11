@@ -5,14 +5,10 @@ import {
   Brain,
   LayoutDashboard,
   Users,
-  Upload,
   BookOpen,
-  Calendar,
-  DollarSign,
   FileText,
   CreditCard,
 } from "lucide-react";
-import { Button } from "./ui/button";
 
 type MenuItem = {
   id: string;
