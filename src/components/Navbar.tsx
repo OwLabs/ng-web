@@ -3,7 +3,11 @@
 import { Menu } from "lucide-react";
 import Image from "next/image";
 
-const Navbar = () => {
+interface NavbarProps {
+  onMenuClick?: () => void;
+}
+
+const Navbar = ({ onMenuClick }: NavbarProps) => {
   /**
    * - NextJS 13 and above use `useRouter` from next/navigation because latest pattern of project structure use App Router
    * - App Router ----> https://nextjs.org/docs/app/getting-started/project-structure
@@ -18,7 +22,12 @@ const Navbar = () => {
     <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-full mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
         <div className="flex items-center gap-4">
-          <button className="text-gray-800 md:hidden hover:text-gray-600 transition-colors">
+          <button
+            type="button"
+            className="text-gray-800 md:hidden hover:text-gray-600 transition-colors"
+            onClick={onMenuClick}
+            aria-label="Toggle sidebar"
+          >
             <Menu className="w-6 h-6" />
           </button>
           <div className="flex flex-col-2 gap-2">
