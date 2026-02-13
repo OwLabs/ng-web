@@ -121,14 +121,26 @@
   }
   body {
     @apply bg-background text-foreground;
+    overflow-x: hidden;
   }
 }
 
 /* Performance-optimized CSS animations */
+/* For above-the-fold content: use slide-only (no opacity change) to preserve Speed Index */
+@keyframes slide-up {
+  from {
+    transform: translateY(16px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* For below-the-fold content: full fade-in-up animation */
 @keyframes fade-in-up {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -136,10 +148,63 @@
   }
 }
 
-.animate-fade-in-up {
-  animation: fade-in-up 0.5s ease-out forwards;
+/* Scale animation for cards */
+@keyframes scale-in {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
-.animation-delay-100 {
-  animation-delay: 0.1s;
+/* Above-the-fold: content visible immediately, subtle slide only */
+.animate-slide-up {
+  will-change: transform;
+  animation: slide-up 0.3s ease-out;
+}
+
+/* Below-the-fold: full animation */
+.animate-fade-in-up {
+  will-change: opacity, transform;
+  animation: fade-in-up 0.4s ease-out both;
+}
+
+.animate-scale-in {
+  will-change: opacity, transform;
+  animation: scale-in 0.3s ease-out both;
+}
+
+/* Stagger delays */
+.animation-delay-75 {
+  animation-delay: 75ms;
+}
+
+.animation-delay-150 {
+  animation-delay: 150ms;
+}
+
+.animation-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animation-delay-300 {
+  animation-delay: 300ms;
+}
+
+.animation-delay-400 {
+  animation-delay: 400ms;
+}
+
+/* Touch manipulation for better mobile interaction */
+.touch-manipulation {
+  touch-action: manipulation;
+}
+
+/* Content visibility for below-the-fold performance */
+.content-visibility-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 400px;
 }
