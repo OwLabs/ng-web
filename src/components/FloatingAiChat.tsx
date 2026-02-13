@@ -47,10 +47,11 @@ export function FloatingAIChat() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setIsOpen(true)}
+            aria-label="Open AI chat"
             className="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] shadow-2xl flex items-center justify-center z-50 group"
           >
-            <Brain className="w-8 h-8 text-white animate-pulse" />
-            <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-white"></span>
+            <Brain className="w-8 h-8 text-white animate-pulse" aria-hidden="true" />
+            <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-white" aria-label="New message available"></span>
           </motion.button>
         )}
       </AnimatePresence>
@@ -72,8 +73,8 @@ export function FloatingAIChat() {
                     <Brain className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-white">AI Learning Assistant</h3>
-                    <p className="text-xs text-blue-100">
+                    <h2 className="text-white">AI Learning Assistant</h2>
+                    <p className="text-xs text-white/90">
                       Online • Ready to help
                     </p>
                   </div>
@@ -81,15 +82,17 @@ export function FloatingAIChat() {
                 <div className="flex gap-2">
                   <button
                     onClick={() => setIsOpen(false)}
+                    aria-label="Minimize chat"
                     className="text-white hover:bg-white/20 p-1 rounded transition-colors"
                   >
-                    <Minimize2 className="w-5 h-5" />
+                    <Minimize2 className="w-5 h-5" aria-hidden="true" />
                   </button>
                   <button
                     onClick={() => setIsOpen(false)}
+                    aria-label="Close chat"
                     className="text-white hover:bg-white/20 p-1 rounded transition-colors"
                   >
-                    <X className="w-5 h-5" />
+                    <X className="w-5 h-5" aria-hidden="true" />
                   </button>
                 </div>
               </div>
@@ -131,11 +134,12 @@ export function FloatingAIChat() {
                     onClick={handleSend}
                     className="bg-gradient-to-r from-[#1E3A8A] to-[#3B82F6] text-white"
                     size="sm"
+                    aria-label="Send message"
                   >
-                    <Send className="w-4 h-4" />
+                    <Send className="w-4 h-4" aria-hidden="true" />
                   </Button>
                 </div>
-                <p className="text-xs text-gray-500 mt-2 text-center">
+                <p className="text-xs text-gray-600 mt-2 text-center">
                   Powered by NeuralGuru AI
                 </p>
               </div>
