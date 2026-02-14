@@ -53,7 +53,7 @@ jest.mock("next/image", () => ({
     onLoad?: () => void;
     [key: string]: unknown;
   }) => {
-    // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
+    // eslint-disable-next-line @next/next/no-img-element
     return <img src={props.src} alt={props.alt} className={props.className} />;
   },
 }));
@@ -219,7 +219,7 @@ export const waitFor = async (ms: number = 0) => {
 /**
  * Helper to create a mock function that returns a specific value
  */
-export const createMockFn = <T>(returnValue: T) => {
+export const createMockFn = <T,>(returnValue: T) => {
   return jest.fn().mockReturnValue(returnValue);
 };
 
