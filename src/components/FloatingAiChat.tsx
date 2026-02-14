@@ -49,6 +49,7 @@ export function FloatingAIChat() {
         <button
           onClick={() => setIsOpen(true)}
           aria-label="Open AI chat"
+          data-testid="floating-ai"
           className="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] shadow-2xl flex items-center justify-center z-50 hover:scale-110 active:scale-95 transition-transform duration-200"
         >
           <Brain className="w-8 h-8 text-white" aria-hidden="true" />
@@ -58,7 +59,7 @@ export function FloatingAIChat() {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 w-[90vw] sm:w-96 z-50">
+        <div className="fixed bottom-6 right-6 w-[90vw] sm:w-96 z-50" data-testid="ai-chat-panel">
           <Card className="shadow-2xl overflow-hidden border-0 rounded-2xl">
             {/* Header */}
             <div className="bg-gradient-to-r from-[#1E3A8A] to-[#3B82F6] p-4 flex items-center justify-between rounded-t-2xl">

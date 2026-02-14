@@ -26,7 +26,7 @@ export function SectionA({ onNavigate }: DashboardSectionProps) {
               <div className="flex-1 min-w-0">
                 <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
                   <h2 className="text-[#0B2545] font-semibold text-base sm:text-lg">AI Insight Detected</h2>
-                  <Badge className="bg-red-700 text-white hover:bg-red-800 font-semibold w-fit">Action Needed</Badge>
+                  <Badge className="bg-red-700 text-white hover:bg-red-800 font-semibold w-fit" data-testid="action-needed-badge">Action Needed</Badge>
                 </div>
                 <p className="text-gray-700 mb-3 sm:mb-4 text-sm sm:text-base">
                   KBAT Pattern Weakness: <strong>Contextual Algebra Problems</strong>
