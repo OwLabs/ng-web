@@ -1,0 +1,21 @@
+{
+  "name": "NeuralGuru - AI Learning Dashboard",
+  "short_name": "NeuralGuru",
+  "description": "Personalized AI-powered learning platform with adaptive practice, progress tracking, and expert tutoring",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAF7F2",
+  "theme_color": "#1E3A8A",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["education", "productivity"],
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
