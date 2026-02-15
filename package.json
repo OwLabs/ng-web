@@ -8,8 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "jest",
-    "test:watch": "jest --watch",
-    "commit": "npx cz"
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -33,7 +32,6 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "commitizen": "^4.3.1",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
