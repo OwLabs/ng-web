@@ -38,16 +38,21 @@ interface SidebarProps {
 
 export default function Sidebar({ isOpen, onClose, isCollapsed, onToggleCollapse }: SidebarProps) {
   const [currentPage, setCurrentPage] = useState<string>("student-dashboard");
-  const [role, setRole] = useState<Role | null>(null);
+  const [role, setRole] = useState<Role>("student");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const storedRole = localStorage.getItem("roles") as Role;
     if (storedRole) {
-      setRole(storedRole);
-    } else {
-      setRole("student"); // Default role
+      requestAnimationFrame(() => {
+        setRole(storedRole);
+        setCurrentPage(`${storedRole}-dashboard`);
+      });
     }
-  }, [role]);
+    requestAnimationFrame(() => {
+      setMounted(true);
+    })
+  }, []);
 
   const studentMenuItems: MenuItem[] = useMemo(
     () => [
@@ -100,6 +105,8 @@ export default function Sidebar({ isOpen, onClose, isCollapsed, onToggleCollapse
     }
   }, [role, studentMenuItems, tutorMenuItems, adminMenuItems]);
 
+  if (!mounted) return null;
+
   return (
     <>
       <aside
@@ -120,6 +127,8 @@ export default function Sidebar({ isOpen, onClose, isCollapsed, onToggleCollapse
               e.stopPropagation();
               onToggleCollapse();
             }}
+            title={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
+            aria-label={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
             className="hidden lg:flex absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white border border-gray-200 shadow-sm items-center justify-center text-gray-500 hover:text-[#1E3A8A] hover:border-[#3B82F6] transition-colors z-50 cursor-pointer"
           >
             {isCollapsed ? (
@@ -138,15 +147,20 @@ export default function Sidebar({ isOpen, onClose, isCollapsed, onToggleCollapse
                   setCurrentPage(item.id);
                   onClose();
                 }}
+                title={item.label}
+                aria-current={currentPage === item.id ? "page" : undefined}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${currentPage === item.id
                   ? "bg-linear-to-r from-[#1E3A8A] to-[#3B82F6] text-white shadow-lg"
                   : "text-gray-700 hover:bg-gray-100"
                   } ${isCollapsed ? "justify-center px-2" : ""}`}
               >
-                <item.icon className="w-5 h-5 shrink-0" />
+                <item.icon className="w-5 h-5 shrink-0" aria-hidden="true" focusable="false" />
                 {!isCollapsed && <span className="flex-1 text-left">{item.label}</span>}
                 {item.badge && currentPage !== item.id && !isCollapsed && (
-                  <span className="px-2 py-0.5 text-xs bg-purple-600 text-white rounded-full">
+                  <span
+                    className="px-2 py-0.5 text-xs bg-purple-600 text-white rounded-full"
+                    aria-hidden="true"
+                  >
                     {item.badge}
                   </span>
                 )}
