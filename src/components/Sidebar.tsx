@@ -1,10 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  ChevronsLeft,
-  ChevronsRight,
-} from "lucide-react";
+import { ChevronsLeft, ChevronsRight } from "lucide-react";
 import { menuItemsByRole, type Role } from "@/constants/userNavigationRole";
 
 interface SidebarProps {
@@ -14,7 +11,12 @@ interface SidebarProps {
   onToggleCollapse: () => void;
 }
 
-export default function Sidebar({ isOpen, onClose, isCollapsed, onToggleCollapse }: SidebarProps) {
+export default function Sidebar({
+  isOpen,
+  onClose,
+  isCollapsed,
+  onToggleCollapse,
+}: SidebarProps) {
   const [currentPage, setCurrentPage] = useState<string>("student-dashboard");
   const [role, setRole] = useState<Role>("student");
   const [mounted, setMounted] = useState(false);
@@ -29,7 +31,7 @@ export default function Sidebar({ isOpen, onClose, isCollapsed, onToggleCollapse
     }
     requestAnimationFrame(() => {
       setMounted(true);
-    })
+    });
   }, []);
 
   const activeMenuItems = menuItemsByRole[role];
@@ -44,8 +46,8 @@ export default function Sidebar({ isOpen, onClose, isCollapsed, onToggleCollapse
           top-14 lg:top-16
           h-[calc(100vh-3.5rem)] lg:h-[calc(100vh-4rem)]
           bg-white border-r border-gray-200
-          transition-all duration-300 z-30 
-          ${isCollapsed ? "w-20" : "w-64"}
+          transition-all duration-300 z-30
+          w-64 ${isCollapsed ? "lg:w-20" : "lg:w-64"}
           ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
         `}
       >
@@ -78,16 +80,25 @@ export default function Sidebar({ isOpen, onClose, isCollapsed, onToggleCollapse
                 }}
                 title={item.label}
                 aria-current={currentPage === item.id ? "page" : undefined}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${currentPage === item.id
-                  ? "bg-linear-to-r from-[#1E3A8A] to-[#3B82F6] text-white shadow-lg"
-                  : "text-gray-700 hover:bg-gray-100"
-                  } ${isCollapsed ? "justify-center px-2" : ""}`}
+                className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-lg transition-all overflow-hidden whitespace-nowrap ${
+                  currentPage === item.id
+                    ? "bg-linear-to-r from-[#1E3A8A] to-[#3B82F6] text-white shadow-lg"
+                    : "text-gray-700 hover:bg-gray-100"
+                }`}
               >
-                <item.icon className="w-5 h-5 shrink-0" aria-hidden="true" focusable="false" />
-                {!isCollapsed && <span className="flex-1 text-left">{item.label}</span>}
-                {item.badge && currentPage !== item.id && !isCollapsed && (
+                <item.icon
+                  className="w-5 h-5 shrink-0"
+                  aria-hidden="true"
+                  focusable="false"
+                />
+                <span
+                  className={`flex-1 text-left transition-all duration-300 ${isCollapsed ? "lg:w-0 lg:opacity-0" : "w-auto opacity-100"}`}
+                >
+                  {item.label}
+                </span>
+                {item.badge && currentPage !== item.id && (
                   <span
-                    className="px-2 py-0.5 text-xs bg-purple-600 text-white rounded-full"
+                    className={`px-2 py-0.5 text-xs bg-purple-600 text-white rounded-full transition-all duration-300 ${isCollapsed ? "lg:hidden" : ""}`}
                     aria-hidden="true"
                   >
                     {item.badge}
