@@ -1,33 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  Brain,
-  LayoutDashboard,
-  Users,
-  BookOpen,
-  FileText,
-  CreditCard,
   ChevronsLeft,
   ChevronsRight,
-  User,
-  Upload,
-  Calendar,
-  DollarSign,
-  GraduationCap,
-  BarChart3,
-  Activity,
-  Settings,
 } from "lucide-react";
-
-type MenuItem = {
-  id: string;
-  label: string;
-  badge?: string;
-  icon: React.ElementType;
-};
-
-type Role = "student" | "tutor" | "admin";
+import { menuItemsByRole, type Role } from "@/constants/userNavigationRole";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -54,56 +32,7 @@ export default function Sidebar({ isOpen, onClose, isCollapsed, onToggleCollapse
     })
   }, []);
 
-  const studentMenuItems: MenuItem[] = useMemo(
-    () => [
-      { id: "student-dashboard", icon: LayoutDashboard, label: "Dashboard" },
-      { id: "student-insight", icon: Brain, label: "AI Practice" },
-      { id: "student-materials", icon: BookOpen, label: "Materials" },
-      { id: "student-report", icon: FileText, label: "Reports" },
-      { id: "student-bookings", icon: Users, label: "Book Tutor" },
-      { id: "student-payments", icon: CreditCard, label: "Payments" },
-    ],
-    []
-  );
-
-  const tutorMenuItems: MenuItem[] = useMemo(
-    () => [
-      { id: "tutor-dashboard", icon: LayoutDashboard, label: "Dashboard" },
-      { id: "tutor-students", icon: User, label: "My Students" },
-      { id: "tutor-upload", icon: Upload, label: "Upload Test Results" },
-      { id: "tutor-insights", icon: Brain, label: "AI Insights" },
-      { id: "tutor-materials", icon: BookOpen, label: "Materials" },
-      { id: "tutor-bookings", icon: Calendar, label: "Bookings" },
-      { id: "tutor-earnings", icon: DollarSign, label: "Earnings" },
-    ],
-    []
-  );
-
-  const adminMenuItems: MenuItem[] = useMemo(
-    () => [
-      { id: "admin-dashboard", icon: LayoutDashboard, label: "Dashboard" },
-      { id: "admin-tutors", icon: User, label: "Manage Tutors" },
-      { id: "admin-students", icon: GraduationCap, label: "Manage Students" },
-      { id: "admin-analytics", icon: Brain, label: "AI Analytics" },
-      { id: "admin-results", icon: FileText, label: "Test Results" },
-      { id: "admin-reports", icon: BarChart3, label: "Reports" },
-      { id: "admin-logs", icon: Activity, label: "System Logs" },
-      { id: "admin-settings", icon: Settings, label: "Settings" },
-    ],
-    []
-  );
-
-  const activeMenuItems = useMemo(() => {
-    switch (role) {
-      case "tutor":
-        return tutorMenuItems;
-      case "admin":
-        return adminMenuItems;
-      case "student":
-      default:
-        return studentMenuItems;
-    }
-  }, [role, studentMenuItems, tutorMenuItems, adminMenuItems]);
+  const activeMenuItems = menuItemsByRole[role];
 
   if (!mounted) return null;
 
