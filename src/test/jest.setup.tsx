@@ -7,17 +7,6 @@
 import "@testing-library/jest-dom";
 
 // =============================================================================
-// structuredClone Polyfill
-// =============================================================================
-
-// jsdom doesn't have structuredClone, which is required by MUI charts
-if (typeof structuredClone === "undefined") {
-  global.structuredClone = (obj: unknown) => {
-    return JSON.parse(JSON.stringify(obj));
-  };
-}
-
-// =============================================================================
 // Next.js Navigation Mocks
 // =============================================================================
 

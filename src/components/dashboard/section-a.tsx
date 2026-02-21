@@ -17,15 +17,15 @@ export function SectionA({ onNavigate }: DashboardSectionProps) {
 
       {/* AI Insight Alert - subtle slide animation */}
       <div className="mb-6 sm:mb-8 animate-slide-up">
-        <Card className="p-4 sm:p-6 bg-gradient-to-r from-[#1E3A8A]/10 to-[#3B82F6]/10 border-[#3B82F6]/30">
+        <Card className="p-4 sm:p-6 bg-gradient-to-r from-[#1E3A8A]/10 to-[#3B82F6]/10 border-[#3B82F6]/30" aria-labelledby="ai-insight-heading">
           <CardContent className="p-0">
             <div className="flex flex-col sm:flex-row items-start gap-4">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] flex items-center justify-center flex-shrink-0" aria-hidden="true">
                 <Brain className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
-                  <h2 className="text-[#0B2545] font-semibold text-base sm:text-lg">AI Insight Detected</h2>
+                  <h2 id="ai-insight-heading" className="text-[#0B2545] font-semibold text-base sm:text-lg">AI Insight Detected</h2>
                   <Badge className="bg-red-700 text-white hover:bg-red-800 font-semibold w-fit" data-testid="action-needed-badge">Action Needed</Badge>
                 </div>
                 <p className="text-gray-700 mb-3 sm:mb-4 text-sm sm:text-base">
@@ -39,6 +39,7 @@ export function SectionA({ onNavigate }: DashboardSectionProps) {
                   className="bg-gradient-to-r from-[#1E3A8A] to-[#3B82F6] text-white min-h-[44px] touch-manipulation"
                   onClick={() => onNavigate?.('practice')}
                   type="button"
+                  aria-label="Start AI Practice: Contextual Algebra Problems"
                 >
                   Start AI Practice Now
                 </Button>

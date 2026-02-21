@@ -23,8 +23,8 @@ export function SectionB({ onNavigate }: DashboardSectionProps) {
         {/* 6-Week Progress Chart */}
         <Card className="p-4 sm:p-6 h-full animate-fade-in-up">
           <CardContent className="p-0 h-full flex flex-col">
-            <h2 className="text-[#0B2545] text-base sm:text-lg font-semibold mb-4 sm:mb-6">6-Week Progress</h2>
-            <div className="flex-1 min-h-[240px] sm:min-h-[280px] w-full min-w-0">
+            <h2 id="progress-chart-heading" className="text-[#0B2545] text-base sm:text-lg font-semibold mb-4 sm:mb-6">6-Week Progress</h2>
+            <div className="flex-1 min-h-[240px] sm:min-h-[280px] w-full min-w-0" role="img" aria-labelledby="progress-chart-heading">
               <LineChart
                 xAxis={[{ data: weeks, scaleType: 'band' }]}
                 series={[
@@ -59,6 +59,26 @@ export function SectionB({ onNavigate }: DashboardSectionProps) {
                   </linearGradient>
                 </defs>
               </LineChart>
+              {/* Screen reader only data table */}
+              <div className="sr-only">
+                <table>
+                  <caption>6-Week Progress Chart Data</caption>
+                  <thead>
+                    <tr>
+                      <th>Week</th>
+                      <th>Score</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {weeks.map((week, index) => (
+                      <tr key={week}>
+                        <td>{week}</td>
+                        <td>{performanceData[index]}%</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -67,16 +87,16 @@ export function SectionB({ onNavigate }: DashboardSectionProps) {
         <Card className="p-4 sm:p-6 h-full animate-fade-in-up animation-delay-150">
           <CardContent className="p-0 h-full flex flex-col">
             <h2 className="text-[#0B2545] text-base sm:text-lg font-semibold mb-4 sm:mb-6">Subject Strength Analysis</h2>
-            <div className="flex-1 space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+            <div className="flex-1 space-y-3 sm:space-y-4 mb-4 sm:mb-6" role="list" aria-label="Subject performance breakdown">
               {subjectData.map((item) => (
-                <div key={item.subject}>
+                <div key={item.subject} role="listitem">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-[#0B2545] font-medium">{item.subject}</span>
                     <span className="text-sm font-bold text-gray-900">
                       {item.score}%
                     </span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                  <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden" role="progressbar" aria-valuenow={item.score} aria-valuemin={0} aria-valuemax={100} aria-label={`${item.subject} progress: ${item.score}%`}>
                     <div
                       className="h-2 rounded-full transition-all duration-700 ease-out"
                       style={{ width: `${item.score}%`, backgroundColor: item.color }}
@@ -91,7 +111,7 @@ export function SectionB({ onNavigate }: DashboardSectionProps) {
               onClick={() => onNavigate?.('report')}
             >
               View Detailed Report
-              <ArrowRight className="ml-2 w-4 h-4" />
+              <ArrowRight className="ml-2 w-4 h-4" aria-hidden="true" />
             </Button>
           </CardContent>
         </Card>

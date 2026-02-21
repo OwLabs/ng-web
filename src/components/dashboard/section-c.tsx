@@ -8,7 +8,7 @@ import { DashboardSectionProps } from '@/types/dashboard';
 
 export function SectionC({ onNavigate }: DashboardSectionProps) {
   return (
-    <div className="mt-6 sm:mt-8 mb-6 sm:mb-8 content-visibility-auto">
+    <div className="mt-6 sm:mt-8 mb-6 sm:mb-8 content-visibility-auto" role="region" aria-label="Performance metrics and actions">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         {/* Overall Performance Card */}
         <Card className="p-4 sm:p-6 h-full flex flex-col animate-scale-in">
@@ -40,9 +40,10 @@ export function SectionC({ onNavigate }: DashboardSectionProps) {
             variant="secondary"
             className="w-full min-h-[44px] touch-manipulation"
             onClick={() => onNavigate?.('practice')}
+            aria-label="Continue AI Practice: 3 questions for Algebra"
           >
             Continue Practice
-            <ArrowRight className="ml-2 w-4 h-4" />
+            <ArrowRight className="ml-2 w-4 h-4" aria-hidden="true" />
           </Button>
         </Card>
 
@@ -59,6 +60,7 @@ export function SectionC({ onNavigate }: DashboardSectionProps) {
               variant="outline"
               className="w-full mt-auto min-h-[44px] touch-manipulation"
               onClick={() => onNavigate?.('tutor')}
+              aria-label="View upcoming session details: Sir Azlan - Algebra"
             >
               View Details
             </Button>

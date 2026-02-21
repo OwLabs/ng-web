@@ -41,8 +41,6 @@ This project follows the [Conventional Commits](https://www.conventionalcommits.
 - **Dashboard sections**: Course progress, skill analysis, learning recommendations, activity timeline, achievements, and study goals
 - **MUI X Charts** for data visualization (LineChart, BarChart, PieChart)
 - **PWA support** with manifest file and optimized viewport metadata
-- **Playwright E2E testing configuration** (`playwright.config.ts`)
-- **Navigation mocks** for testing (`src/test/__mocks__/navigation.ts`)
 - **Jest unit test** for FloatingAiChat component
 - **Coverage collection configuration** for Jest (specific source paths)
 - **Package description** with comprehensive project overview
