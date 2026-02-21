@@ -32,7 +32,7 @@ This project follows the [Conventional Commits](https://www.conventionalcommits.
 
 ---
 
-## [1.0.4] - Learning Dashboard Student Portal
+## [1.0.5] - Learning Dashboard Student Portal
 
 ### Added
 
@@ -69,6 +69,17 @@ This project follows the [Conventional Commits](https://www.conventionalcommits.
 - Optimized bundle size with package import optimization
 
 ---
+
+## [1.0.4] - Sidebar
+
+### Added
+
+- Added Collapsible Sidebar
+- Sidebar is globally usable depending on user role
+- Responsive for both desktop and mobile
+
+---
+
 
 ## [1.0.3] - Navbar & Floating AI Chat
 
