@@ -24,7 +24,7 @@ export function SectionB({ onNavigate }: DashboardSectionProps) {
         <Card className="p-4 sm:p-6 h-full animate-fade-in-up">
           <CardContent className="p-0 h-full flex flex-col">
             <h2 id="progress-chart-heading" className="text-[#0B2545] text-base sm:text-lg font-semibold mb-4 sm:mb-6">6-Week Progress</h2>
-            <div className="flex-1 min-h-[240px] sm:min-h-[280px] w-full min-w-0" role="img" aria-labelledby="progress-chart-heading">
+            <div className="flex-1 min-h-60 sm:min-h-70 w-full min-w-0" role="img" aria-labelledby="progress-chart-heading">
               <LineChart
                 xAxis={[{ data: weeks, scaleType: 'band' }]}
                 series={[
@@ -107,7 +107,7 @@ export function SectionB({ onNavigate }: DashboardSectionProps) {
             </div>
             <Button
               variant="outline"
-              className="w-full min-h-[44px] touch-manipulation"
+              className="w-full min-h-11 touch-manipulation"
               onClick={() => onNavigate?.('report')}
             >
               View Detailed Report

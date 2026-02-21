@@ -1,16 +1,28 @@
 /**
  * Jest Setup File
- * This file runs before each test file and sets up the testing environment.
- * @see https://testing-library.com/docs/react-testing-library/setup
+ * @see https://jestjs.io/docs/configuration#setupfilesafterenv-array
+ *
+ * This file runs after the test framework is installed but before tests.
+ * Use for global setup, extending matchers, or configuring shared behavior.
  */
 
 import "@testing-library/jest-dom";
 
 // =============================================================================
-// Next.js Navigation Mocks
+// Polyfills
 // =============================================================================
 
-// Mock next/navigation hooks
+// jsdom doesn't have structuredClone, which is required by MUI charts
+if (typeof structuredClone === "undefined") {
+  global.structuredClone = (obj: unknown) => {
+    return JSON.parse(JSON.stringify(obj));
+  };
+}
+
+// =============================================================================
+// Next.js Mocks
+// =============================================================================
+
 jest.mock("next/navigation", () => ({
   useRouter: () => ({
     push: jest.fn(),
@@ -28,68 +40,20 @@ jest.mock("next/navigation", () => ({
   permanentRedirect: jest.fn(),
 }));
 
-// Mock next/image to avoid issues with image optimization in tests
 jest.mock("next/image", () => ({
   __esModule: true,
   default: (props: {
     src: string;
     alt: string;
     className?: string;
-    width?: number;
-    height?: number;
-    fill?: boolean;
-    priority?: boolean;
-    onLoad?: () => void;
     [key: string]: unknown;
-  }) => {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img src={props.src} alt={props.alt} className={props.className} />;
-  },
+  }) => <img src={props.src} alt={props.alt} className={props.className} />,
 }));
 
+// =============================================================================
+// Browser API Mocks
+// =============================================================================
 
-// Store original fetch for restoration if needed
-const originalFetch = global.fetch;
-
-/**
- * Mock fetch for API calls in tests
- * Can be overridden in individual test files
- */
-global.fetch = jest.fn(() =>
-  Promise.resolve({
-    ok: true,
-    status: 200,
-    json: () => Promise.resolve({}),
-    text: () => Promise.resolve(""),
-    blob: () => Promise.resolve(new Blob()),
-    arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
-    headers: new Headers(),
-  } as Response)
-) as jest.Mock;
-
-/**
- * Helper to restore original fetch
- */
-export const restoreFetch = () => {
-  global.fetch = originalFetch;
-};
-
-/**
- * Helper to mock fetch with custom response
- */
-export const mockFetch = (response: unknown, options?: { status?: number; ok?: boolean }) => {
-  (global.fetch as jest.Mock).mockImplementationOnce(() =>
-    Promise.resolve({
-      ok: options?.ok ?? true,
-      status: options?.status ?? 200,
-      json: () => Promise.resolve(response),
-      text: () => Promise.resolve(JSON.stringify(response)),
-    } as Response)
-  );
-};
-
-// Intersection Observer Mock
-// Mock IntersectionObserver for components that use it
 class MockIntersectionObserver {
   observe = jest.fn();
   unobserve = jest.fn();
@@ -105,8 +69,6 @@ Object.defineProperty(window, "IntersectionObserver", {
   value: MockIntersectionObserver,
 });
 
-// Resize Observer Mock
-// Mock ResizeObserver for components that use it
 class MockResizeObserver {
   observe = jest.fn();
   unobserve = jest.fn();
@@ -119,8 +81,6 @@ Object.defineProperty(window, "ResizeObserver", {
   value: MockResizeObserver,
 });
 
-// Match Media Mock
-// Mock matchMedia for responsive components
 Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: jest.fn().mockImplementation((query: string) => ({
@@ -135,81 +95,51 @@ Object.defineProperty(window, "matchMedia", {
   })),
 });
 
-// ScrollTo Mock
-// Mock window.scrollTo
 Object.defineProperty(window, "scrollTo", {
   writable: true,
   value: jest.fn(),
 });
 
-// localStorage Mock
-// Mock localStorage
-const localStorageMock = {
-  getItem: jest.fn(),
-  setItem: jest.fn(),
-  removeItem: jest.fn(),
-  clear: jest.fn(),
-  length: 0,
-  key: jest.fn(),
-};
-
 Object.defineProperty(window, "localStorage", {
-  value: localStorageMock,
+  value: {
+    getItem: jest.fn(),
+    setItem: jest.fn(),
+    removeItem: jest.fn(),
+    clear: jest.fn(),
+    length: 0,
+    key: jest.fn(),
+  },
 });
 
-// Console Error Suppression (Useful to testing error state)
-//
-// NOTE: Suppressing warnings is NOT ideal - it hides potential issues.
-// These act(...) warnings come from MUI charts (third-party lib).
-// Better approach: Mock chart components to avoid this entirely.
-//
-// If you prefer no suppression, remove this block and accept the warnings.
+// =============================================================================
+// Fetch Mock
+// =============================================================================
 
-const originalError = console.error;
-beforeAll(() => {
-  console.error = (...args: unknown[]) => {
-    const firstArg = args[0];
+const originalFetch = global.fetch;
 
-    // Suppress React development warnings that are expected in tests
-    if (typeof firstArg === "string") {
-      // Suppress act(...) warnings
-      if (firstArg.includes("act(...")) {
-        return;
-      }
-      // Suppress Warning: messages
-      if (firstArg.includes("Warning:")) {
-        return;
-      }
-    }
+global.fetch = jest.fn(() =>
+  Promise.resolve({
+    ok: true,
+    status: 200,
+    json: () => Promise.resolve({}),
+    text: () => Promise.resolve(""),
+    blob: () => Promise.resolve(new Blob()),
+    arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
+    headers: new Headers(),
+  } as Response)
+) as jest.Mock;
 
-    // Suppress Error objects with specific messages
-    if (firstArg instanceof Error) {
-      if (firstArg.message.includes("act(...)")) {
-        return;
-      }
-    }
-
-    originalError.call(console, ...args);
-  };
-});
-afterAll(() => {
-  console.error = originalError;
-});
-
-// Global Test Utilities
-
-/**
- * Helper to wait for state updates in tests
- */
-export const waitFor = async (ms: number = 0) => {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+export const restoreFetch = () => {
+  global.fetch = originalFetch;
 };
 
-/**
- * Helper to create a mock function that returns a specific value
- */
-export const createMockFn = <T,>(returnValue: T) => {
-  return jest.fn().mockReturnValue(returnValue);
+export const mockFetch = (response: unknown, options?: { status?: number; ok?: boolean }) => {
+  (global.fetch as jest.Mock).mockImplementationOnce(() =>
+    Promise.resolve({
+      ok: options?.ok ?? true,
+      status: options?.status ?? 200,
+      json: () => Promise.resolve(response),
+      text: () => Promise.resolve(JSON.stringify(response)),
+    } as Response)
+  );
 };
-
-export {};

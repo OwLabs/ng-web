@@ -43,7 +43,7 @@ const Navbar = ({ onMenuClick }: NavbarProps) => {
         </div>
         <div className="flex items-center">
           <button
-            className="text-gray-700 hover:text-gray-900 text-sm font-medium px-4 py-2 rounded-lg hover:bg-gray-100 transition-all duration-200 cursor-pointer min-h-[44px] touch-manipulation focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2"
+            className="text-gray-700 hover:text-gray-900 text-sm font-medium px-4 py-2 rounded-lg hover:bg-gray-100 transition-all duration-200 cursor-pointer min-h-11 touch-manipulation focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2"
             onClick={handleLogout}
           >
             Logout
