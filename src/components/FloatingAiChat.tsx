@@ -47,10 +47,15 @@ export function FloatingAIChat() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] shadow-2xl flex items-center justify-center z-50 group"
+            aria-label="Open AI chat"
+            data-testid="floating-ai"
+            className="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-linear-to-br from-[#1E3A8A] to-[#3B82F6] shadow-2xl flex items-center justify-center z-50 group"
           >
-            <Brain className="w-8 h-8 text-white animate-pulse" />
-            <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-white"></span>
+            <Brain className="w-8 h-8 text-white animate-pulse" aria-hidden="true" />
+            <span
+              className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-white"
+              aria-label="New message available"
+            ></span>
           </motion.button>
         )}
       </AnimatePresence>
@@ -64,9 +69,9 @@ export function FloatingAIChat() {
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             className="fixed bottom-6 right-6 w-[90vw] sm:w-96 z-50"
           >
-            <Card className="shadow-2xl overflow-hidden border-0 rounded-2xl">
+            <Card className="shadow-2xl overflow-hidden border-0 rounded-2xl" data-testid="ai-chat-panel">
               {/* Header */}
-              <div className="bg-gradient-to-r from-[#1E3A8A] to-[#3B82F6] p-4 flex items-center justify-between rounded-t-2xl">
+              <div className="bg-linear-to-r from-[#1E3A8A] to-[#3B82F6] p-4 flex items-center justify-between rounded-t-2xl">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
                     <Brain className="w-6 h-6 text-white" />
@@ -81,15 +86,17 @@ export function FloatingAIChat() {
                 <div className="flex gap-2">
                   <button
                     onClick={() => setIsOpen(false)}
+                    aria-label="Minimize chat"
                     className="text-white hover:bg-white/20 p-1 rounded transition-colors"
                   >
-                    <Minimize2 className="w-5 h-5" />
+                    <Minimize2 className="w-5 h-5" aria-hidden="true" />
                   </button>
                   <button
                     onClick={() => setIsOpen(false)}
+                    aria-label="Close chat"
                     className="text-white hover:bg-white/20 p-1 rounded transition-colors"
                   >
-                    <X className="w-5 h-5" />
+                    <X className="w-5 h-5" aria-hidden="true" />
                   </button>
                 </div>
               </div>
@@ -104,11 +111,10 @@ export function FloatingAIChat() {
                     className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                   >
                     <div
-                      className={`max-w-[80%] p-3 rounded-lg ${
-                        msg.role === "user"
-                          ? "bg-gradient-to-r from-[#1E3A8A] to-[#3B82F6] text-white"
+                      className={`max-w-[80%] p-3 rounded-lg ${msg.role === "user"
+                          ? "bg-linear-to-r from-[#1E3A8A] to-[#3B82F6] text-white"
                           : "bg-white text-gray-800 shadow-sm"
-                      }`}
+                        }`}
                     >
                       <p className="text-sm">{msg.content}</p>
                     </div>
@@ -129,10 +135,11 @@ export function FloatingAIChat() {
                   />
                   <Button
                     onClick={handleSend}
-                    className="bg-gradient-to-r from-[#1E3A8A] to-[#3B82F6] text-white"
+                    aria-label="Send message"
+                    className="bg-linear-to-r from-[#1E3A8A] to-[#3B82F6] text-white"
                     size="sm"
                   >
-                    <Send className="w-4 h-4" />
+                    <Send className="w-4 h-4" aria-hidden="true" />
                   </Button>
                 </div>
                 <p className="text-xs text-gray-500 mt-2 text-center">

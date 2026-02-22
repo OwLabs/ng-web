@@ -28,7 +28,13 @@ const config: Config = {
   collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  // collectCoverageFrom: undefined,
+  collectCoverageFrom: [
+    "src/**/*.{js,jsx,ts,tsx}",
+    "!src/**/*.d.ts",
+    "!src/**/index.ts",
+    "!src/test/**",
+    "!src/types/**",
+  ],
 
   // The directory where Jest should output its coverage files
   coverageDirectory: "coverage",
@@ -147,7 +153,7 @@ const config: Config = {
   // setupFiles: [],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
-  setupFilesAfterEnv: ["<rootDir>/src/test/jest.setup.ts"],
+  setupFilesAfterEnv: ["<rootDir>/src/test/jest.setup.tsx"],
 
   // The number of seconds after which a test is considered as slow and reported as such in the results.
   // slowTestThreshold: 5,
@@ -169,16 +175,15 @@ const config: Config = {
     // Unit tests
     "<rootDir>/src/test/unit/**/*.spec.ts",
     "<rootDir>/src/test/unit/**/*.spec.tsx",
-
-    // E2E tests
-    "<rootDir>/src/test/e2e/**/*.e2e-spec.ts",
-    "<rootDir>/src/test/e2e/**/*.e2e-spec.tsx",
+    "<rootDir>/src/test/unit/**/*.test.ts",
+    "<rootDir>/src/test/unit/**/*.test.tsx",
   ],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
-  // testPathIgnorePatterns: [
-  //   "/node_modules/"
-  // ],
+  testPathIgnorePatterns: [
+    "/node_modules/",
+    "/.next/",
+  ],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
   // testRegex: [],
@@ -193,10 +198,9 @@ const config: Config = {
   // transform: undefined,
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-  // transformIgnorePatterns: [
-  //   "/node_modules/",
-  //   "\\.pnp\\.[^\\/]+$"
-  // ],
+  transformIgnorePatterns: [
+    "node_modules/(?!(motion|gsap)/)",
+  ],
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,

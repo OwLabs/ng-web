@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
@@ -122,5 +121,115 @@
   }
   body {
     @apply bg-background text-foreground;
+    overflow-x: hidden;
   }
+}
+
+/* Performance-optimized CSS animations */
+/* For above-the-fold content: use slide-only (no opacity change) to preserve Speed Index */
+@keyframes slide-up {
+  from {
+    transform: translateY(16px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* For below-the-fold content: full fade-in-up animation */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scale animation for cards */
+@keyframes scale-in {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Above-the-fold: content visible immediately, subtle slide only */
+.animate-slide-up {
+  will-change: transform;
+  animation: slide-up 0.3s ease-out;
+}
+
+/* Below-the-fold: full animation */
+.animate-fade-in-up {
+  will-change: opacity, transform;
+  animation: fade-in-up 0.4s ease-out both;
+}
+
+.animate-scale-in {
+  will-change: opacity, transform;
+  animation: scale-in 0.3s ease-out both;
+}
+
+/* Stagger delays */
+.animation-delay-75 {
+  animation-delay: 75ms;
+}
+
+.animation-delay-150 {
+  animation-delay: 150ms;
+}
+
+.animation-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animation-delay-300 {
+  animation-delay: 300ms;
+}
+
+.animation-delay-400 {
+  animation-delay: 400ms;
+}
+
+/* Touch manipulation for better mobile interaction */
+.touch-manipulation {
+  touch-action: manipulation;
+}
+
+/* Content visibility for below-the-fold performance */
+.content-visibility-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 400px;
+}
+
+/* Screen reader only utility for accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Make sr-only content visible when focused */
+.focus\:not-sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
 }
